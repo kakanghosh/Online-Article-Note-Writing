@@ -1,0 +1,43 @@
+<%-contentFor('title')%>
+<%=pagetitle%>
+<%-contentFor('style')%>
+
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-1"> </div>
+		<div class="col-lg-10">
+			<form method="POST">
+				<table class="table table-responsive table-bordered">
+					<tr>
+						<td>User ID: <%=user.user_id%></td>
+					</tr>
+					<tr>
+						<td>user Name: <%=user.user_name%></td>
+					</tr>
+					<tr>
+						<td>Full Name: <input type="text" name="name" value="<%=user.name%>"></td>
+					</tr>
+					<tr>
+						<td>Email: <%=user.email%></td>
+					</tr>
+					<tr>
+						<td>Password: <input type="text" name="password" placeholder="*******"></td>
+					</tr>
+					<tr>
+						<td>User Type ID: <%=user.user_type_id%></td>
+					</tr>
+					<tr>
+						<td>Joinging Date: <%=dateFormat(user.creation_date,"dddd, mmmm dS, yyyy, h:MM:ss TT")%></td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="submit" class="btn btn-success" value="Update"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="col-lg-1"> </div>
+	</div>
+</div>
+
+<%-contentFor('script')%>

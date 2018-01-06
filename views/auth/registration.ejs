@@ -1,0 +1,95 @@
+<%-contentFor('title')%>
+User | Registration
+<%-contentFor('style')%>
+<link rel="stylesheet" type="text/css" href="/frontend/css/registration.css">
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="form-div form-bg">
+
+				<form method="POST">
+					<div class="form-group">
+						<label for="name">Full Name</label>
+						
+							<input type="text" class="form-control" 
+							<%if(typeof oldinfo != 'undefined'){%> 
+								value = "<%=oldinfo.fullname%>"
+							<%}%>
+							name="fullname" id="name" placeholder="Your Full Name">
+
+	    					<%if(typeof errors != 'undefined'){%>
+	    					<%for(var i = 0; i < errors.length; i++){%>
+								<%if(errors[i].param == 'fullname'){%>
+									<span class="text-danger"><%=errors[i].msg%></span>
+									<br>
+								<%}%>	
+							<%}%>
+	    				<%}%>
+					</div>
+
+					<div class="form-group">
+						<label for="username">User Name</label>
+	    					<input type="text" class="form-control"
+	    					<%if(typeof oldinfo != 'undefined'){%> 
+								value = "<%=oldinfo.username%>"
+							<%}%> 
+	    					name="username" id="username" placeholder="Your Username">
+	    				<%if(typeof errors != 'undefined'){%>
+	    					<%for(var i = 0; i < errors.length; i++){%>
+								<%if(errors[i].param == 'username'){%>
+									<span class="text-danger"><%=errors[i].msg%></span>
+									<br>
+								<%}%>	
+							<%}%>
+	    				<%}%>
+	    				<%if(typeof usernameexist != 'undefined'){%>
+	    					<span class="text-danger"><%=usernameexist%></span>
+	    				<%}%>
+					</div>
+					<div class="form-group">
+						<label for="email">Email address</label>
+	    					<input type="text" class="form-control"
+	    					<%if(typeof oldinfo != 'undefined'){%> 
+								value = "<%=oldinfo.email%>"
+							<%}%>
+	    					name="email" id="email"  placeholder="Your Email Address">
+	    				<%if(typeof errors != 'undefined'){%>
+	    					<%for(var i = 0; i < errors.length; i++){%>
+								<%if(errors[i].param == 'email'){%>
+									<span class="text-danger"><%=errors[i].msg%></span>
+									<br>
+								<%}%>	
+							<%}%>
+	    				<%}%>
+	    				<%if(typeof emailexist != 'undefined'){%>
+	    					<span class="text-danger"><%=emailexist%></span>
+	    				<%}%>
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+	    				<input type="password" class="form-control" name="password" id="password" placeholder="********">
+	    				<%if(typeof errors != 'undefined'){%>
+	    					<%for(var i = 0; i < errors.length; i++){%>
+								<%if(errors[i].param == 'password'){%>
+									<span class="text-danger"><%=errors[i].msg%></span>
+									<br>
+								<%}%>	
+							<%}%>
+	    				<%}%>
+					</div>
+					<div class="form-group">
+						<label for="repassword">Re-Password</label>
+	    				<input type="password" class="form-control" name="repassword" id="repassword" placeholder="********">
+					</div>
+					<input type="submit" class="btn btn-success" name="submit" value="Register">
+					<span><a href="/" class="btn btn-link">Back to Article</a></span>	
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-4"></div>
+	</div>
+</div>
+
+<%-contentFor('script')%>

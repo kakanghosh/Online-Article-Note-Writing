@@ -1,0 +1,98 @@
+<%-contentFor('title')%>
+Article | Profile
+<%-contentFor('style')%>
+<style type="text/css">
+	.profile{
+		font-size: 16px;
+		font-weight: bold;
+		color:#1255532;
+	}
+	.info{
+		font-weight: normal;
+	}
+	.bgcolor{
+		background-color: #ffe;	
+	}
+</style>
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2"> </div>
+		<div class="col-lg-8">
+			<p class="profile">Name: <span class="text-danger info"><%=user.name%></span></p>
+			<hr>
+			<p class="profile">User Name: <span class="text-danger info"><%=user.user_name%></span></p>
+			<hr>
+			<p class="profile">Email: <span class="text-danger info"><%=user.email%></span></p>
+			<hr>
+			<p class="profile">Joining Date: <span class="text-danger info"><%=dateFormat(user.creation_date,"dddd, mmmm dS, yyyy, h:MM:ss TT")%></span></p>
+			<a id="changepassword" data-toggle="modal" data-target="#changepassmodal" class="btn btn-info">Change Password</a>
+
+			<!-- Change Password Modal -->
+			<div class="modal fade" id="changepassmodal" role="dialog">
+          			<div class="modal-dialog">
+          				<div class="modal-header bgcolor">
+				            <button type="button" class="close" data-dismiss="modal">x</button>
+				            <h3>Change Password</h3>
+			          	</div>
+			         	<div class="modal-body bgcolor">
+				            <form method="post" onclick="return false;" name="chnage_pass_form">
+				            	<div class="form-group">
+				            		<input type="Password" id="oldpass" name="oldpass" class="form-control"
+				            		placeholder="Enter Old Password">
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="Password" id="newpass" name="newpass" class="form-control" placeholder="Enter New Password">
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="Password" id="newrepass" name="newrepass" class="form-control" placeholder="Enter New Password Again">
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="submit" id="passchangeBtn" name="submit" class="btn btn-success" value="Change">
+				            	</div>
+				            </form>
+				        </div>
+          			</div>
+        		</div>
+		</div>
+		<div class="col-lg-2"> </div>
+	</div>
+</div>
+
+<%-contentFor('script')%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.nav li').removeClass('active');
+		$('#profile').addClass('active');
+
+		$('#passchangeBtn').on('click',function(){
+			var password = {
+			 	oldpass : $('#oldpass').val(),
+				newpass : $('#newpass').val(),
+				newrepass : $('#newrepass').val()
+			};
+			$('#oldpass').val('');
+			$('#newpass').val('');
+			$('#newrepass').val('');
+			$('#changepassmodal').modal('toggle');
+			
+			$.ajax({
+				type : 'POST',
+				data : {info: JSON.stringify(password)},
+				dataType: "json",
+				url : '/us/changepassword',
+				success : function(result){
+					if (result) {
+						alert("Password changed Successfully");
+					}else{
+						alert("Password change failed");
+					}
+				},
+				failure: function(errormgs){
+
+				}
+			});
+			
+		});
+	});
+</script>

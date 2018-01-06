@@ -1,0 +1,107 @@
+<%-contentFor('title')%>
+<%=pagetitle%>
+<%-contentFor('style')%>
+
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-1"> </div>
+		<div class="col-lg-10">
+			
+			<input type="hidden" name="userid" id="userid" data-userid="<%=userid%>">
+			<%if(typeof articles != 'undefined') {%>
+				<h2>Article List Of <span class="text-danger"><%=writer%></span></h2>
+				<table class="table table-striped table-condensed">
+					<tr>
+						<th>SL.</th>
+						<th>Article URL</th>
+						<th>Article Starting Date</th>
+						<th>Last Update</th>
+						<th>Status</th>
+						<th>Options</th>
+					</tr>
+				<%for(var i = 0; i < articles.length; i++) {%>
+					<tr>
+						<td><%=(i+1)%>.</td>
+						<td><a href="/<%=articles[i].url%>" target = "_blank"><%=articles[i].url%></a></td>
+						<td>
+							<%= dateFormat(articles[i].creation_time_date, "dddd, mmmm dS, yyyy, h:MM:ss TT")%>
+								
+						</td>
+						<td>
+							<%= dateFormat(articles[i].article_update_date, "dddd, mmmm dS, yyyy, h:MM:ss TT")%>	
+						</td>
+						<td>
+							<select class="btn btn-primary status" data-link = "<%=articles[i].url%>">
+								<%if(articles[i].article_status_id == 1){%>
+									<option selected>Active</option>
+									<option>Deactive</option>
+								<%}else{%>
+									<option>Active</option>
+									<option selected>Deactive</option>
+								<%}%>
+							</select>
+						</td>
+						<td><a class="articledelete btn btn-danger" onclick="return false;" data-url = "<%=articles[i].url%>" href="/us/deletearticle/<%=articles[i].url%>">Delete Article</a></td>
+					</tr>
+				<%}%>
+				</table>
+			<%}else{%>
+				<h2 class="alert alert-info" style="text-align: center;">No Article Written, Yet!</a></h2>
+			<%}%>
+		</div>
+		<div class="col-lg-1"> </div>
+	</div>
+</div>
+
+<%-contentFor('script')%>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//Delete Article
+		//TODO
+		$('.articledelete').on('click',function(){
+			var url = $(this).data('url');
+			console.log(url);
+			if (confirm('Are You Sure About Delete?') == true) {
+				var uid = $('#userid').data('userid');
+				console.log('Userid: '+uid);
+				$.ajax({
+					type : 'POST',
+					url : '/admin/deletearticle/'+url,
+					success : function(result){
+						if (result) {
+							console.log(result);
+							window.location.href = '/admin/showarticles/'+uid;
+						}
+					}
+				});
+			}
+		});
+
+
+		//Manage Article status
+		//TODO
+		//Get Article URL
+		//Get Current Status and Alter the ststus
+		//AJAX CALL
+		$('.status').on('change',function(){
+			var urlData = {
+				url : $(this).data('link'),
+				status : $(this).val().toLowerCase()
+			}
+			$.ajax({
+				type:'POST',
+				data: {information: JSON.stringify(urlData) },
+    			dataType: "json",
+				url: '/admin/updatestatus',
+				success:function(result){
+					console.log('Status updated: '+result);
+				},
+				failure: function(errMsg) {
+        			console.log(errMsg);
+    			}
+			});
+		});
+	});
+</script>

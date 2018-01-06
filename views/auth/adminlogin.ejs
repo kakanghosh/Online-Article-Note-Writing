@@ -1,0 +1,50 @@
+<%-contentFor('title')%>
+<%=pagetitle%>
+<%-contentFor('style')%>
+<style type="text/css">
+	body{
+		background-color: #ddd;
+	}
+	.form-div{
+		margin-top: 50%;
+		padding-top: 30px;
+		padding-right: 10px;
+		padding-left: 10px;
+		padding-bottom: 20px;
+		background-color: #fff;
+	}
+</style>
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4"> </div>
+		<div class="col-lg-4">
+			<div id="formDiv" class="form-div">
+				<h2 style="margin-bottom: 20px;">Admin Login</h2>
+				<%if(typeof error != 'undefined'){%>
+					<p class="alert alert-danger"><%=error%></p>
+				<%}%>
+				<form method="POST">
+					<div class="form-group">
+						<input type="text" name="username" class="form-control" placeholder="Enter Your Username or Email">
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control" placeholder="Enter Password">
+					</div>
+					<div class="form-group">
+						<input type="submit" name="submit" class="btn btn-success" value="Login">
+						<a href="/">Back To Article</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-4"> </div>
+	</div>
+</div>
+
+<%-contentFor('script')%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	});
+</script>

@@ -1,0 +1,22 @@
+<%-contentFor('title')%>
+Article | Article Request
+<%-contentFor('style')%>
+
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2"> </div>
+		<div class="col-lg-8">
+			<p>Article Request</p>
+		</div>
+		<div class="col-lg-2"> </div>
+	</div>
+</div>
+
+<%-contentFor('script')%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.nav li').removeClass('active');
+		$('#req').addClass('active');
+	});
+</script>

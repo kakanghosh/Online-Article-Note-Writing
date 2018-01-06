@@ -1,0 +1,33 @@
+body{
+	background-color: #e9ecf0;
+	/*background-color: #383732;*/
+	/*background-image: url("../../image/bg.jpg");*/
+}
+#maindiv{
+	margin-top: 3%;
+}
+
+#articletextarea{
+	resize: none;
+}
+#test{
+	background-color: #fff;
+}
+
+.bg-color{
+	background-color: #e9ecf0;
+}
+
+.color-white{
+	background: white;
+}
+
+.imgsize{
+	width: 25px;
+	height: 25px;
+}
+
+
+.link li a:hover{
+	background-color: #ddd;	
+}

@@ -1,0 +1,40 @@
+<%-contentFor('title')%>
+<%=pagetitle%>
+<%-contentFor('style')%>
+
+<%-contentFor('maincontainer')%>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-bordered table-striped table-responsive">
+				<tr>
+					<th>SL.</th>
+					<th>Full Name</th>
+					<th>User Name</th>
+					<th>Email</th>
+					<th>Entry Date</th>
+					<td>Option</td>
+				</tr>
+				<%for(var i = 0; i < userdata.length; i++) {%>
+					<tr>
+						<td class="text-info"><%=(i+1)%>. </td>
+						<td class="text-success"><%=userdata[i].name%></td>
+						<td><%=userdata[i].user_name%></td>
+						<td><%=userdata[i].email%></td>
+						<td><%=dateFormat(userdata[i].creation_date,"dddd, mmmm dS, yyyy, h:MM:ss TT")%></td>
+						<td>
+							<a class="btn btn-success" href="/admin/showarticles/<%=userdata[i].user_id%>">Articles </a>
+							<a class="btn btn-primary" href="/admin/edit/<%=userdata[i].user_id%>">Edit </a> 
+							<a class="btn btn-danger" href="/admin/delete/<%=userdata[i].user_id%>"> Delete</a>
+						</td>
+					</tr>
+				<%}%>
+			</table>
+		</div>
+	</div>
+</div>
+
+<%-contentFor('script')%>
+<script type="text/javascript">
+	
+</script>

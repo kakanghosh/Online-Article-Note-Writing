@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%-defineContent('title')%></title>
+	<link rel="shortcut icon" type="image/png" href="../icon/favicon.png"/>
+	<link rel="stylesheet" type="text/css" href="../frontend/bootstrap/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="../frontend/bootstrap/bootstrap.min.css">
+	<style type="text/css">
+		.umargin{
+			margin-right: 30px;
+			line-height: 30px;
+			font-size: 18px;
+			color:#555;
+		}
+	</style>
+	<%-defineContent('style')%>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+	  	<div class="container-fluid">
+	   		<div class="navbar-header">
+	      		<a class="navbar-brand" href="/us">Article</a>
+	    	</div>
+		    <ul class="nav navbar-nav">
+		      <li id="alllinks"><a href="/us/alllinks">All Links</a></li><!-- 
+		      <li id="req"><a href="/us/article_request">Article Request</a></li> -->
+		      <li id="new"><a href="/" target="_blank">New Article</a></li>
+		      <li id="profile"><a href="/us/profile">Profile</a></li>
+		      <li><a href="#" id="logout">Logout</a></li>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		    	<li>
+		    		<p class="umargin">
+		    			<span class="text-info alert alert-danger">
+		    				Welcome! <span class="text-success" style="margin-right:10px;"><%=user.name%></span>
+		    			</span>
+		    		</p>
+		    	</li>
+		    </ul>
+		 </div>
+</nav>
+	<%-defineContent('maincontainer')%>
+	
+	<script type="text/javascript" src="../frontend/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../frontend/bootstrap/bootstrap.min.js"></script>
+	<%-defineContent('script')%>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#logout').on('click',function(){
+				$.ajax({
+					type:'POST',
+					url: '/us/logout',
+					success:function(result){
+						if (result) {
+							window.location.href = '/';
+						}else{
+						}
+					},
+					failure: function(errMsg) {
+	    			}
+				});
+			});
+		});
+	</script>
+
+</body>
+
+</html>

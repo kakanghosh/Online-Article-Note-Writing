@@ -1,0 +1,145 @@
+<%-contentFor('title')%>
+Article|Write
+<%-contentFor('style')%>
+<link rel="stylesheet" type="text/css" href="frontend/css/basic.css">
+<style type="text/css">
+	.mar{
+		margin-right: 5px;
+	}
+	
+</style>
+
+<%-contentFor('maincontainer')%>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-10">
+			<%if(typeof loginfailed != 'undefined') {%>
+				<script type="text/javascript">
+					alert("Login Failed");
+				</script>
+			<%}%>
+			<div id="maindiv">
+				<%if(typeof newuser != 'undefined'){%>
+					<span class="alert alert-success"><%=newuser%></span>
+				<%}%>
+				<nav >
+				  <div>
+				    <ul class="nav navbar-nav"  style="font-size:18px;">
+				    	<li class="mar">
+				    		<a href="/" id="newdoc" class="btn btn-info pad" title="New Document">
+				    			<img class="imgsize" src="icon/newdocument.png">
+				    		</a>
+				    	</li>
+				      	<li id="passlist" class="mar">
+				      		<% if (!pinExist(pin)) { %>
+					      		<a href="#" id="pin" data-toggle="modal" data-target="#logModal" data-backdrop="static" class="btn btn-danger pad" data-keyboard="false" title="Set Pin">
+					      			<img class="imgsize" src="icon/pin.png">
+					      		</a>
+					      	<%} else {%>
+					      		<a href="#" id="pin" data-toggle="modal" data-target="#logModal" data-backdrop="static" class="btn btn-danger pad"  data-keyboard="false" title="Manage Pin">
+					      			<img class="imgsize" src="icon/pin.png">
+					      		</a>
+					      	<%}%>
+					      	<!-- <a href="#" id="pin" data-toggle="modal" data-target="#logModal" data-backdrop="	static" class="btn btn-danger pad"  data-keyboard="false" title="
+					      	<%if (!pinExist(pin)) {%>
+					      		Set Pin 
+					      	<%}else{%>
+					      		Manage Pin
+					      	<%}%>
+					      	">
+					      		<img class="imgsize" src="icon/pin.png">
+					      	</a> -->
+				      	</li>
+				      	<li class="mar">
+				      		<%if(session.userid != null) {%>
+								<a href="/us"  class="btn btn-success pad"  id="account" title="Go To Account">
+				      				<img class="imgsize" src="icon/account.png"/>
+								</a>
+							<%}else{%>
+								<a href="#" id="account" class="btn btn-success pad"  title="Login" data-toggle = "modal" data-target="#loginModal">
+				      				<img class="imgsize" src="icon/account.png"/>
+								</a>
+							<%}%>
+				      		
+				      	</li>
+				    </ul>
+				  </div>
+				</nav>
+				<input type="hidden" id = "url" value="<%=data%>">
+				<textarea id="articletextarea" rows="24" cols="120" class="form-control"><%=article%></textarea>
+				<!-- <p style="margin-left:10px;color:#000;">Written By: 
+					<span id="#writer" style="color:red;">Anonymous</span>
+				</p> -->
+
+					
+		
+				<!-- If Pin exist than this view -->
+				<% if (!pinExist(pin)) { %>
+					<div id="logModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-header" style="background-color:#fff;">
+								<button type="button" id = "close" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Set Password</h4>
+							</div>
+							<div class="modal-body" style="background-color:#fff;">
+								<input type="Password" name="password" id="password" class="form-control"><br>
+								<button type="button" name="setpassword" id="setpassword" class="btn btn-primary">
+									Set
+								</button>
+							</div>
+						</div>
+					</div>		
+				
+				<% } else {%> <!-- If Pin does not exist than this view -->
+					<div id="logModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-body" style="background-color:#fff;">									
+								<button type="button" name="resetpassword" id="resetpassword" class="btn btn-danger">
+									Remove Pin
+								</button>
+								<button type="button" name="logout" id="logout" class="btn btn-primary">
+									Logout
+								</button>
+								<button type="button" name="close" id ="disclose" class="btn btn-success">
+									Exit
+								</button>
+							</div>
+						</div>
+					</div>	
+				<%}%>
+
+				<!-- Login Modal -->
+				<div class="modal fade" id="loginModal" role="dialog">
+          			<div class="modal-dialog">
+          				<div class="modal-header color-white">
+				            <button type="button" class="close" data-dismiss="modal">x</button>
+				            <h3>Login</h3>
+			          	</div>
+			         	<div class="modal-body color-white">
+				            <form method="post" action='/auth/login' name="login_form">
+				              <p><input type="text" class="span3 form-control" name="email" id="email" placeholder="Email/UserName"></p>
+				              <p><input type="password" class="span3 form-control" name="password" placeholder="Password"></p>
+				              <input type="hidden" name="url" value="<%=data%>">
+				              <p><button type="submit" class="btn btn-success">Log in</button>
+				                <a href="#">Forgot Password?</a>
+				              </p>
+				            </form>
+				        </div>
+				        <div class="modal-footer color-white">
+				            Register Now
+				            <a href="/auth/registration" class="btn btn-primary">Register</a>
+				        </div>
+          			</div>
+        		</div>
+       			<!-- Login Modal End-->
+			</div>
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+</div>
+
+<!-- End of Main Container -->
+
+<%-contentFor('script')%>
+<script type="text/javascript" src="frontend/js/articleindex.js"></script>
